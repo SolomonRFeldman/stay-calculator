@@ -1,12 +1,9 @@
 import "./App.css";
+import StayCalculator from "./components/StayCalculator";
 
 function App() {
   return (
-    <main className="container">
-      <div className="flex items-center">
-        <button className="btn mx-auto">Stay Calculator</button>
-      </div>
-    </main>
+    <StayCalculator />
   );
 }
 
