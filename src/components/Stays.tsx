@@ -5,6 +5,7 @@ import type { Stay as StayType } from "./Stay"
 import { DayPicker } from "react-day-picker"
 import totalStayDays from "../utils/total_stay_days"
 import uniqueStays from "../utils/unique_stays"
+import useStays, { getStayRangesFromStays } from "../hooks/use_stays"
 
 const sortStays = (stays: StayType[]) => {
   return stays.sort((stayA, stayB) => {
@@ -18,14 +19,11 @@ const sortStays = (stays: StayType[]) => {
 }
 
 export default function Stays() {
-  const [stays, setStays] = useState<StayType[]>([{ id: uuidv4() }])
+  const [stays, setStays] = useStays()
   const [selectedStayId, setSelectedStayId] = useState<string | null>(null)
   const selectedStay = stays.find((s) => s.id === selectedStayId)
   const hasNewStay = stays.some((stay) => !stay.range)
-  const uniqueStayRanges = uniqueStays(stays.map((stay) => ({
-    from: stay.range?.from,
-    to: stay.range?.to
-  })))
+  const uniqueStayRanges = uniqueStays(getStayRangesFromStays(stays).filter((stay) => stay !== undefined && stay !== null))
 
   const handleAddStay = () => { setStays((prevStays) => [...prevStays, { id: uuidv4() }]) }
   const handleUpdateStay = (updatedStay: StayType) => {
