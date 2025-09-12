@@ -47,9 +47,9 @@ export default function Stays() {
       <table className="table">
         <thead>
           <tr>
-            <th>Stay Period</th>
-            <th>Stay Days</th>
-            <th>Total Stay in 180 Day Period</th>
+            <th>Period</th>
+            <th>Days</th>
+            <th className="max-w-1">out of 180</th>
             <th></th>
           </tr>
         </thead>
