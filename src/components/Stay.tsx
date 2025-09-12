@@ -21,10 +21,10 @@ export default function Stay({ stay: { range }, editStay, deleteStay, stayDaysIn
         </button>
       </td>
       <td>
-        {range?.from && range?.to ? Math.ceil((range.to.getTime() - range.from.getTime()) / (1000 * 3600 * 24) + 1) : 0} days
+        {range?.from && range?.to ? Math.round((range.to.getTime() - range.from.getTime()) / (1000 * 3600 * 24) + 1) : 0} days
       </td>
       <td>
-        {stayDaysInPeriod && Math.floor(stayDaysInPeriod)}
+        {stayDaysInPeriod && Math.round(stayDaysInPeriod)}
       </td>
       <td>
         <button className="btn btn-error btn-sm" onClick={deleteStay}>X</button>
