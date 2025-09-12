@@ -1,4 +1,5 @@
 import { DateRange } from "react-day-picker"
+import millisecondsToDays from "../utils/millisecondsToDays"
 
 export type Stay = {
   id: string
@@ -21,7 +22,7 @@ export default function Stay({ stay: { range }, editStay, deleteStay, stayDaysIn
         </button>
       </td>
       <td>
-        {range?.from && range?.to ? Math.round((range.to.getTime() - range.from.getTime()) / (1000 * 3600 * 24) + 1) : 0} days
+        {range?.from && range?.to ? Math.round(millisecondsToDays(range.to.getTime() - range.from.getTime()) + 1) : 0}
       </td>
       <td>
         {stayDaysInPeriod && Math.round(stayDaysInPeriod)}
