@@ -9,9 +9,10 @@ type StayProps = {
   stay: Stay
   editStay: () => void
   deleteStay: () => void
+  stayDaysInPeriod?: number
 }
 
-export default function Stay({ stay: { range }, editStay, deleteStay }: StayProps) {
+export default function Stay({ stay: { range }, editStay, deleteStay, stayDaysInPeriod }: StayProps) {
   return (
     <tr>
       <td>
@@ -21,6 +22,9 @@ export default function Stay({ stay: { range }, editStay, deleteStay }: StayProp
       </td>
       <td>
         {range?.from && range?.to ? Math.ceil((range.to.getTime() - range.from.getTime()) / (1000 * 3600 * 24) + 1) : 0} days
+      </td>
+      <td>
+        {stayDaysInPeriod && Math.floor(stayDaysInPeriod)}
       </td>
       <td>
         <button className="btn btn-error btn-sm" onClick={deleteStay}>X</button>

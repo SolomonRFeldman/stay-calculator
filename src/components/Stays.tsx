@@ -3,6 +3,7 @@ import { v4 as uuidv4 } from "uuid"
 import Stay from "./Stay"
 import type { Stay as StayType } from "./Stay"
 import { DayPicker } from "react-day-picker"
+import totalStayDays from "../utils/total_stay_days"
 
 const sortStays = (stays: StayType[]) => {
   return stays.sort((stayA, stayB) => {
@@ -20,6 +21,10 @@ export default function Stays() {
   const [selectedStayId, setSelectedStayId] = useState<string | null>(null)
   const selectedStay = stays.find((s) => s.id === selectedStayId)
   const hasNewStay = stays.some((stay) => !stay.range)
+  const staysAsDateRanges = stays.map((stay) => ({
+    from: stay.range?.from,
+    to: stay.range?.to
+  }))
 
   const handleAddStay = () => { setStays((prevStays) => [...prevStays, { id: uuidv4() }]) }
   const handleUpdateStay = (updatedStay: StayType) => {
@@ -43,12 +48,19 @@ export default function Stays() {
           <tr>
             <th>Stay Period</th>
             <th>Stay Days</th>
+            <th>Total Stay in 180 Day Period</th>
             <th></th>
           </tr>
         </thead>
         <tbody>
           {sortStays(stays).map((stay) => (
-            <Stay key={stay.id} stay={stay} editStay={() => setSelectedStayId(stay.id)} deleteStay={() => handleDeleteStay(stay.id)} />
+            <Stay
+              key={stay.id}
+              stay={stay}
+              editStay={() => setSelectedStayId(stay.id)}
+              deleteStay={() => handleDeleteStay(stay.id)}
+              stayDaysInPeriod={stay.range?.to && totalStayDays(staysAsDateRanges, stay.range.to, 180)}
+            />
           ))}
         </tbody>
       </table>
