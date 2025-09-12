@@ -56,8 +56,8 @@ export default function Stays() {
             <Stay
               key={stay.id}
               stay={stay}
-              editStay={() => setSelectedStayId(stay.id)}
-              deleteStay={() => handleDeleteStay(stay.id)}
+              editStay={() => { setSelectedStayId(stay.id); }}
+              deleteStay={() => { handleDeleteStay(stay.id); }}
               stayDaysInPeriod={stay.range?.to && totalStayDays(uniqueStayRanges, stay.range.to, 180)}
             />
           ))}

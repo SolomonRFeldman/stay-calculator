@@ -2,12 +2,12 @@ import { DateRange } from "react-day-picker"
 import millisecondsToDays from "../utils/millisecondsToDays"
 import { XMarkIcon } from "@heroicons/react/24/solid"
 
-export type Stay = {
+export interface Stay {
   id: string
   range?: DateRange
 }
 
-type StayProps = {
+interface StayProps {
   stay: Stay
   editStay: () => void
   deleteStay: () => void
