@@ -1,5 +1,6 @@
 import { DateRange } from "react-day-picker"
 import millisecondsToDays from "../utils/millisecondsToDays"
+import { XMarkIcon } from "@heroicons/react/24/solid"
 
 export type Stay = {
   id: string
@@ -28,7 +29,7 @@ export default function Stay({ stay: { range }, editStay, deleteStay, stayDaysIn
         {stayDaysInPeriod && Math.round(stayDaysInPeriod)}
       </td>
       <td>
-        <button className="btn btn-error btn-sm" onClick={deleteStay}>X</button>
+        <button className="btn btn-error btn-xs btn-circle" onClick={deleteStay}><XMarkIcon className="size-4" /></button>
       </td>
     </tr>
   )
