@@ -4,6 +4,7 @@ import Stay from "./Stay"
 import type { Stay as StayType } from "./Stay"
 import { DayPicker } from "react-day-picker"
 import totalStayDays from "../utils/total_stay_days"
+import uniqueStays from "../utils/unique_stays"
 
 const sortStays = (stays: StayType[]) => {
   return stays.sort((stayA, stayB) => {
@@ -21,10 +22,10 @@ export default function Stays() {
   const [selectedStayId, setSelectedStayId] = useState<string | null>(null)
   const selectedStay = stays.find((s) => s.id === selectedStayId)
   const hasNewStay = stays.some((stay) => !stay.range)
-  const staysAsDateRanges = stays.map((stay) => ({
+  const uniqueStayRanges = uniqueStays(stays.map((stay) => ({
     from: stay.range?.from,
     to: stay.range?.to
-  }))
+  })))
 
   const handleAddStay = () => { setStays((prevStays) => [...prevStays, { id: uuidv4() }]) }
   const handleUpdateStay = (updatedStay: StayType) => {
@@ -59,7 +60,7 @@ export default function Stays() {
               stay={stay}
               editStay={() => setSelectedStayId(stay.id)}
               deleteStay={() => handleDeleteStay(stay.id)}
-              stayDaysInPeriod={stay.range?.to && totalStayDays(staysAsDateRanges, stay.range.to, 180)}
+              stayDaysInPeriod={stay.range?.to && totalStayDays(uniqueStayRanges, stay.range.to, 180)}
             />
           ))}
         </tbody>
