@@ -10,7 +10,7 @@ interface StayRange {
 export default function useStays() {
   const localStayRanges = localStorage.getItem("stays") ? localStorage.getItem("stays") : null
   const stayRanges: unknown = localStayRanges ? JSON.parse(localStayRanges) : null
-  const [stays, setStaysState] = useState(generateStaysFromStayRanges(isStayRanges(stayRanges) ? stayRanges : [{}]))
+  const [stays, setStaysState] = useState(generateStaysFromStayRanges(isStayRanges(stayRanges) ? stayRanges : [null]))
 
   const setStays: Dispatch<SetStateAction<Stay[]>> = (newStays) => {
     setStaysState((prevStays) => {
@@ -24,10 +24,12 @@ export default function useStays() {
   return [stays, setStays] as const
 }
 
-export const generateStaysFromStayRanges = (stayRanges: StayRange[]): Stay[] => {
+export const generateStaysFromStayRanges = (stayRanges: (StayRange | null)[]): Stay[] => {
   return stayRanges.map((range) => ({
     id: uuidv4(),
-    range: { from: range.from ? new Date(range.from) : undefined, to: range.to ? new Date(range.to) : undefined }
+    range: range
+      ? { from: range.from ? new Date(range.from) : undefined, to: range.to ? new Date(range.to) : undefined }
+      : undefined
   }))
 }
 
@@ -39,7 +41,8 @@ export const isStayRanges = (stayRanges: unknown): stayRanges is StayRange[] => 
   if (!Array.isArray(stayRanges)) return false
 
   return stayRanges.every((range: unknown) => {
-    if (typeof range !== "object" || range === null) return false
+    if (range === null) return true
+    if (typeof range !== "object") return false
     if (!("from" in range) || !("to" in range)) return false
 
     const fromValid = range.from === undefined || typeof range.from === "string"
