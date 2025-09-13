@@ -7,6 +7,6 @@ export default function StayCalculator() {
         <h1>Stay Calculator</h1>
       </span>
       <Stays />
-   </div>
+    </div>
   )
 }

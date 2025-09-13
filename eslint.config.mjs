@@ -14,14 +14,14 @@ export default defineConfig(
     languageOptions: {
       parserOptions: {
         projectService: true,
-        tsconfigRootDir: import.meta.dirname,
-      },
-    },
+        tsconfigRootDir: import.meta.dirname
+      }
+    }
   },
   {
     files: ["eslint.config.mjs", "vite.config.ts", "src-tauri/**/*.js"],
-    extends: [tseslint.configs.disableTypeChecked],
+    extends: [tseslint.configs.disableTypeChecked]
   },
   { ignores: ["**/src-tauri/**", "src/main.tsx"] },
-  { rules: { "prettier/prettier": ["error", { semi: false, printWidth: 120, trailingComma: "none" }] } },
+  { rules: { "prettier/prettier": ["error", { semi: false, printWidth: 120, trailingComma: "none" }] } }
 )

@@ -25,9 +25,11 @@ export default function Stays() {
   const hasNewStay = stays.some((stay) => !stay.range)
   const uniqueStayRanges = uniqueStays(getStayRangesFromStays(stays).filter((range) => range !== undefined))
 
-  const handleAddStay = () => { setStays((prevStays) => [...prevStays, { id: uuidv4() }]) }
+  const handleAddStay = () => {
+    setStays((prevStays) => [...prevStays, { id: uuidv4() }])
+  }
   const handleUpdateStay = (updatedStay: StayType) => {
-    setStays((prevStays) => prevStays.map((stay) => stay.id === updatedStay.id ? updatedStay : stay))
+    setStays((prevStays) => prevStays.map((stay) => (stay.id === updatedStay.id ? updatedStay : stay)))
   }
   const handleDeleteStay = (stayId: string) => {
     if (stays.length === 1) setStays([{ id: uuidv4() }])
@@ -40,7 +42,7 @@ export default function Stays() {
     else datePickerRef.current.hidePopover()
   }
 
-  return(
+  return (
     <div className="flex flex-col gap-2 items-center">
       <table className="table">
         <thead>
@@ -56,24 +58,38 @@ export default function Stays() {
             <Stay
               key={stay.id}
               stay={stay}
-              editStay={() => { setSelectedStayId(stay.id); }}
-              deleteStay={() => { handleDeleteStay(stay.id); }}
+              editStay={() => {
+                setSelectedStayId(stay.id)
+              }}
+              deleteStay={() => {
+                handleDeleteStay(stay.id)
+              }}
               stayDaysInPeriod={stay.range?.to && totalStayDays(uniqueStayRanges, stay.range.to, 180)}
             />
           ))}
         </tbody>
       </table>
-      {hasNewStay || <button className="btn btn-primary" onClick={handleAddStay}>Add Stay</button>}
-      <div ref={datePickerRef} onToggle={({ newState }) => {
-        if (newState === "closed") setSelectedStayId(null)
-      }}
-      popover="auto" className="dropdown">
+      {hasNewStay || (
+        <button className="btn btn-primary" onClick={handleAddStay}>
+          Add Stay
+        </button>
+      )}
+      <div
+        ref={datePickerRef}
+        onToggle={({ newState }) => {
+          if (newState === "closed") setSelectedStayId(null)
+        }}
+        popover="auto"
+        className="dropdown"
+      >
         <DayPicker
           className="react-day-picker"
           classNames={{ selected: "bg-neutral-content", range_middle: "bg-neutral-content", focused: "" }}
           mode="range"
           selected={selectedStay?.range}
-          onSelect={(range) => { if (selectedStay) handleUpdateStay({ ...selectedStay, range }) }}
+          onSelect={(range) => {
+            if (selectedStay) handleUpdateStay({ ...selectedStay, range })
+          }}
         />
       </div>
     </div>

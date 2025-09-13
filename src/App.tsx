@@ -1,10 +1,8 @@
-import "./App.css";
-import StayCalculator from "./components/StayCalculator";
+import "./App.css"
+import StayCalculator from "./components/StayCalculator"
 
 function App() {
-  return (
-    <StayCalculator />
-  );
+  return <StayCalculator />
 }
 
-export default App;
+export default App
