@@ -6,8 +6,9 @@ export default function uniqueStays(stays: DateRange[]) {
   const uniqueStays: DateRange[] = []
 
   for (let i = 0; i < orderedStays.length; ) {
-    const currentStay = orderedStays[i]
-    if (currentStay === undefined) break
+    const originalCurrentStay = orderedStays[i]
+    if (originalCurrentStay === undefined) break
+    const currentStay = { ...originalCurrentStay }
 
     while (currentStay.to) {
       const nextStay = orderedStays[i + 1]
