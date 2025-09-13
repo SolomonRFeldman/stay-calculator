@@ -6,6 +6,7 @@ import { DayPicker } from "react-day-picker"
 import totalStayDays from "../utils/total_stay_days"
 import uniqueStays from "../utils/unique_stays"
 import useStays, { getStayRangesFromStays } from "../hooks/use_stays"
+import CopyPaste from "./CopyPaste"
 
 const sortStays = (stays: StayType[]) => {
   return stays.sort((stayA, stayB) => {
@@ -44,6 +45,7 @@ export default function Stays() {
 
   return (
     <div className="flex flex-col gap-2 items-center">
+      <CopyPaste stays={stays} setStays={setStays} />
       <table className="table">
         <thead>
           <tr>

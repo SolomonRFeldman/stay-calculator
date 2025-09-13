@@ -24,7 +24,7 @@ export default function useStays() {
   return [stays, setStays] as const
 }
 
-const generateStaysFromStayRanges = (stayRanges: StayRange[]): Stay[] => {
+export const generateStaysFromStayRanges = (stayRanges: StayRange[]): Stay[] => {
   return stayRanges.map((range) => ({
     id: uuidv4(),
     range: { from: range.from ? new Date(range.from) : undefined, to: range.to ? new Date(range.to) : undefined }
@@ -35,7 +35,7 @@ export const getStayRangesFromStays = (stays: Stay[]) => {
   return stays.map((stay) => stay.range)
 }
 
-const isStayRanges = (stayRanges: unknown): stayRanges is StayRange[] => {
+export const isStayRanges = (stayRanges: unknown): stayRanges is StayRange[] => {
   if (!Array.isArray(stayRanges)) return false
 
   return stayRanges.every((range: unknown) => {
