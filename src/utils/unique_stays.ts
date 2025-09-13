@@ -5,14 +5,16 @@ export default function uniqueStays(stays: DateRange[]) {
 
   const uniqueStays: DateRange[] = []
 
-  for (let i = 0; i < orderedStays.length;) {
+  for (let i = 0; i < orderedStays.length; ) {
     const currentStay = orderedStays[i]
+    if (currentStay === undefined) break
 
-    while (currentStay?.to) {
+    while (currentStay.to) {
       const nextStay = orderedStays[i + 1]
+      if (!nextStay?.to || !nextStay.from) break
 
-      if (nextStay?.to && nextStay?.from && nextStay.from <= currentStay.to) {
-        if (nextStay.to > currentStay.to) currentStay.to = orderedStays[i + 1].to
+      if (nextStay.from <= currentStay.to) {
+        if (nextStay.to > currentStay.to) currentStay.to = nextStay.to
       } else {
         break
       }

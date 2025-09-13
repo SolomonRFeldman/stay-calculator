@@ -2,9 +2,15 @@ import { Dispatch, SetStateAction, useState } from "react"
 import { v4 as uuidv4 } from "uuid"
 import { Stay } from "../components/Stay"
 
+interface StayRange {
+  from?: string
+  to?: string
+}
+
 export default function useStays() {
-  const stayRanges = localStorage.getItem("stays")
-  const [stays, setStaysState] = useState(generateStaysFromStayRanges(stayRanges ? JSON.parse(stayRanges) : [{}]))
+  const localStayRanges = localStorage.getItem("stays") ? localStorage.getItem("stays") : null
+  const stayRanges: unknown = localStayRanges ? JSON.parse(localStayRanges) : null
+  const [stays, setStaysState] = useState(generateStaysFromStayRanges(isStayRanges(stayRanges) ? stayRanges : [{}]))
 
   const setStays: Dispatch<SetStateAction<Stay[]>> = (newStays) => {
     setStaysState((prevStays) => {
@@ -18,13 +24,26 @@ export default function useStays() {
   return [stays, setStays] as const
 }
 
-const generateStaysFromStayRanges = (stayRanges: { from?: string, to?: string }[]): Stay[] => {
+const generateStaysFromStayRanges = (stayRanges: StayRange[]): Stay[] => {
   return stayRanges.map((range) => ({
     id: uuidv4(),
-    range: range ? { from: range.from ? new Date(range.from) : undefined, to: range.to ? new Date(range.to) : undefined } : undefined
+    range: { from: range.from ? new Date(range.from) : undefined, to: range.to ? new Date(range.to) : undefined }
   }))
 }
 
 export const getStayRangesFromStays = (stays: Stay[]) => {
   return stays.map((stay) => stay.range)
+}
+
+const isStayRanges = (stayRanges: unknown): stayRanges is StayRange[] => {
+  if (!Array.isArray(stayRanges)) return false
+
+  return stayRanges.every((range: unknown) => {
+    if (typeof range !== "object" || range === null) return false
+    if (!("from" in range) || !("to" in range)) return false
+
+    const fromValid = range.from === undefined || typeof range.from === "string"
+    const toValid = range.to === undefined || typeof range.to === "string"
+    return fromValid && toValid
+  })
 }
