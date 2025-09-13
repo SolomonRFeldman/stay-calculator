@@ -8,11 +8,11 @@ export default function uniqueStays(stays: DateRange[]) {
   for (let i = 0; i < orderedStays.length;) {
     const currentStay = orderedStays[i]
 
-    while (currentStay?.to) {
+    while (currentStay.to && i + 1 < orderedStays.length) {
       const nextStay = orderedStays[i + 1]
 
-      if (nextStay?.to && nextStay?.from && nextStay.from <= currentStay.to) {
-        if (nextStay.to > currentStay.to) currentStay.to = orderedStays[i + 1].to
+      if (nextStay.to && nextStay.from && nextStay.from <= currentStay.to) {
+        if (nextStay.to > currentStay.to) currentStay.to = nextStay.to
       } else {
         break
       }

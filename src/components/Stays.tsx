@@ -23,7 +23,7 @@ export default function Stays() {
   const [selectedStayId, setSelectedStayId] = useState<string | null>(null)
   const selectedStay = stays.find((s) => s.id === selectedStayId)
   const hasNewStay = stays.some((stay) => !stay.range)
-  const uniqueStayRanges = uniqueStays(getStayRangesFromStays(stays).filter((stay) => stay !== undefined && stay !== null))
+  const uniqueStayRanges = uniqueStays(getStayRangesFromStays(stays).filter((range) => range !== undefined))
 
   const handleAddStay = () => { setStays((prevStays) => [...prevStays, { id: uuidv4() }]) }
   const handleUpdateStay = (updatedStay: StayType) => {
@@ -73,7 +73,7 @@ export default function Stays() {
           classNames={{ selected: "bg-neutral-content", range_middle: "bg-neutral-content", focused: "" }}
           mode="range"
           selected={selectedStay?.range}
-          onSelect={(range) => selectedStay && handleUpdateStay({ ...selectedStay, range }) }
+          onSelect={(range) => { if (selectedStay) handleUpdateStay({ ...selectedStay, range }) }}
         />
       </div>
     </div>

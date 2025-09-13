@@ -19,11 +19,11 @@ export default function Stay({ stay: { range }, editStay, deleteStay, stayDaysIn
     <tr>
       <td>
         <button className="input input-border" onClick={editStay}>
-          {range?.from && range?.to ? `${range.from.toLocaleDateString()} - ${range.to.toLocaleDateString()}` : "Pick a date"}
+          {range?.from && range.to ? `${range.from.toLocaleDateString()} - ${range.to.toLocaleDateString()}` : "Pick a date"}
         </button>
       </td>
       <td>
-        {range?.from && range?.to ? Math.round(millisecondsToDays(range.to.getTime() - range.from.getTime()) + 1) : 0}
+        {range?.from && range.to ? Math.round(millisecondsToDays(range.to.getTime() - range.from.getTime()) + 1) : 0}
       </td>
       <td>
         {stayDaysInPeriod && Math.round(stayDaysInPeriod)}
