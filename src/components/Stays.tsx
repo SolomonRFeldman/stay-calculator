@@ -86,7 +86,11 @@ export default function Stays() {
       >
         <DayPicker
           className="react-day-picker"
-          classNames={{ selected: "bg-neutral-content", range_middle: "bg-neutral-content", focused: "" }}
+          classNames={{
+            selected: "bg-neutral-content dark:bg-neutral",
+            range_middle: "bg-neutral-content dark:bg-neutral",
+            focused: ""
+          }}
           mode="range"
           selected={selectedStay?.range}
           onSelect={(range) => {
