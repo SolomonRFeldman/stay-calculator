@@ -1,6 +1,6 @@
 {
   "$schema": "https://schema.tauri.app/config/2",
-  "productName": "stay-calculator",
+  "productName": "Stay Calculator",
   "version": "0.1.0",
   "identifier": "com.solomon.stay-calculator",
   "build": {
@@ -12,7 +12,7 @@
   "app": {
     "windows": [
       {
-        "title": "stay-calculator",
+        "title": "Stay Calculator",
         "width": 800,
         "height": 600
       }
