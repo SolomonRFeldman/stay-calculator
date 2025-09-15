@@ -85,7 +85,7 @@ export default function Stays() {
         className="dropdown"
       >
         <DayPicker
-          className="react-day-picker border-4"
+          className="react-day-picker fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-35 border-4"
           classNames={{
             selected: "bg-neutral-content dark:bg-neutral",
             range_middle: "bg-neutral-content dark:bg-neutral",
