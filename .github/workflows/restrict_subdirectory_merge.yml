@@ -1,0 +1,11 @@
+name: Restrict Subdirectory Merge
+on: push
+
+jobs:
+  restrict-subdirectory-merge:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Dump GitHub context
+        env:
+          ACTOR_CONTEXT: ${{ toJson(github.actor) }}
+        run: echo "$ACTOR_CONTEXT"
