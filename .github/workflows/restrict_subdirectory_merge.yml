@@ -9,7 +9,7 @@ jobs:
         env:
           ACTOR_CONTEXT: ${{ toJson(github.actor) }}
         run: |
-          if [ "$ACTOR_CONTEXT" != "MY GUY" ]; then
+          if [ "$ACTOR_CONTEXT" != "SolomonRFeldman" ]; then
             echo "YOU ARE BANNED FROM THIS PLACE, BEGONE!"
             exit 1
           else
