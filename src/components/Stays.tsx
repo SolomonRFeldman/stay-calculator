@@ -18,7 +18,7 @@ const sortStays = (stays: StayType[]) => {
     return 0
   })
 }
-
+// test pathing
 export default function Stays() {
   const [stays, setStays] = useStays()
   const [selectedStayId, setSelectedStayId] = useState<string | null>(null)

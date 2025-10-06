@@ -1,0 +1,22 @@
+name: Restrict Subdirectory Merge
+on:
+  pull_request:
+    paths:
+      - 'src/**'
+
+jobs:
+  restrict-subdirectory-merge:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Dump GitHub context
+        env:
+          ACTOR_CONTEXT: ${{ toJson(github.actor) }}
+          ALLOWED_ACTOR: '"Nobody"'
+        run: |
+          if [ "$ACTOR_CONTEXT" != "$ALLOWED_ACTOR" ]; then
+            echo "YOU ARE BANNED FROM THIS PLACE, BEGONE!"
+            echo "Expected actor: $ALLOWED_ACTOR not $ACTOR_CONTEXT"
+            exit 1
+          else
+            echo "Welcome, my guy!"
+          fi
