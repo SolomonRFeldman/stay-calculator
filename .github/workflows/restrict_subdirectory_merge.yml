@@ -8,10 +8,11 @@ jobs:
       - name: Dump GitHub context
         env:
           ACTOR_CONTEXT: ${{ toJson(github.actor) }}
+          ALLOWED_ACTOR: '"Nobody"'
         run: |
-          if [ "$ACTOR_CONTEXT" != '"SolomonRFeldman"' ]; then
+          if [ "$ACTOR_CONTEXT" != "$ALLOWED_ACTOR" ]; then
             echo "YOU ARE BANNED FROM THIS PLACE, BEGONE!"
-            echo "Expected actor: \"SolomonRFeldman\" not $ACTOR_CONTEXT"
+            echo "Expected actor: $ALLOWED_ACTOR not $ACTOR_CONTEXT"
             exit 1
           else
             echo "Welcome, my guy!"
