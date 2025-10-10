@@ -19,8 +19,6 @@ const sortStays = (stays: StayType[]) => {
   })
 }
 
-// some change
-
 export default function Stays() {
   const [stays, setStays] = useStays()
   const [selectedStayId, setSelectedStayId] = useState<string | null>(null)
